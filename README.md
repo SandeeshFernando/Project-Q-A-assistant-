@@ -27,3 +27,15 @@ Your knowledge base CSV must have these two columns:
 topic, information
 Protein, Essential for muscle building. Aim for 0.8-1g per pound of body weight.
 Rest, Rest days are important for recovery. Take at least 1-2 rest days per week.
+
+
+Project Structure
+
+├── app.py                      # Main application
+├── requirements.txt            # Dependencies
+├── sample_data_fitness.csv     # Sample fitness knowledge base
+├── sample_data_travel.csv      # Sample travel knowledge base
+├── sample_data_biology.csv     # Sample biology knowledge base
+├── sample_data_finance.csv     # Sample finance knowledge base
+└── README.md                   # Project documentation
+
