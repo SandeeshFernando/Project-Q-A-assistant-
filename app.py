@@ -17,7 +17,7 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile
 AVAILABLE_DOMAINS: list[str] = ["Fitness", "Travel", "Biology", "Personal Finance"]
 
 DOMAIN_EMOJIS: dict[str, str] = {
-    "Fitness": "💪 Fitness",
+    "Fitness": "💪 Fitness and Health",
     "Travel": "✈️ Travel",
     "Biology": "🔬 Science and Biology",
     "Personal Finance": "💰 Personal Finance"
