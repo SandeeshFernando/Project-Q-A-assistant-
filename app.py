@@ -19,7 +19,7 @@ AVAILABLE_DOMAINS: list[str] = ["Fitness", "Travel", "Biology", "Personal Financ
 DOMAIN_EMOJIS: dict[str, str] = {
     "Fitness": "💪 Fitness",
     "Travel": "✈️ Travel",
-    "Biology": "🔬 Biology",
+    "Biology": "🔬 Science and Biology",
     "Personal Finance": "💰 Personal Finance"
 }
 
@@ -60,6 +60,9 @@ REQUIRED_CSV_COLUMNS: list[str] = ["topic", "information"]
 # ==============================================================================
 # HELPER functions for setup status and validation
 # ==============================================================================
+
+
+
 
 def is_setup_complete() -> bool:
     return (
