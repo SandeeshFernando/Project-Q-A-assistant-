@@ -323,7 +323,7 @@ def main() -> None:
             "OpenAI API Key",
             type="password",
             key="openai_api_key",
-            help="Enter your OpenAI API key to get real AI responses"
+            help="Please enter your OpenAI API key to get real AI responses"
         )
         st.markdown("---")
         st.caption("Module 01 Final Project")
