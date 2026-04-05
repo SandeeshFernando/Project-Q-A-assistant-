@@ -39,3 +39,13 @@ Project Structure
 ├── sample_data_finance.csv     # Sample finance knowledge base
 └── README.md                   # Project documentation
 
+Tech Stack
+
+Python
+Streamlit
+OpenAI API (gpt-4o-mini)
+Pandas
+
+Author
+abhishek fernando Stem link| IIT student
+
