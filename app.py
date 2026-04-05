@@ -58,7 +58,7 @@ REQUIRED_CSV_COLUMNS: list[str] = ["topic", "information"]
 
 
 # ==============================================================================
-# HELPER FUNCTIONS
+# HELPER functions for setup status and validation
 # ==============================================================================
 
 def is_setup_complete() -> bool:
