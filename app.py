@@ -328,7 +328,7 @@ def main() -> None:
         st.markdown("---")
         st.caption("Module 01 Final Project")
 
-    tab_setup, tab_chat, tab_quick = st.tabs(["Setup", "Chat", "Quick Questions"])
+    tab_setup, tab_chat, tab_quick = st.tabs(["Setup", "Chatbot", "Quick Questions"])
 
     with tab_setup:
         render_setup_tab()
