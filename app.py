@@ -1,40 +1,8 @@
 """
 DOMAIN-RESTRICTED Q&A ASSISTANT
 ================================
-
-YOUR TASK:
-----------
-Implement the functions marked with "STUDENT CODE HERE" below.
-Each function has a docstring that explains exactly what it should do.
-Read the docstrings carefully - they are your guide!
-
-DEVELOPMENT STRATEGY:
----------------------
-Build one tab at a time in this order:
-1. Setup tab (render_setup_tab + load_knowledge_base)
-2. Chat tab (render_chat_tab + build_prompt + get_ai_response)
-3. Quick Questions tab (render_quick_questions_tab)
-
-Run "streamlit run app.py" after EVERY change!
-
-WHAT'S ALREADY PROVIDED:
-------------------------
-- All imports
-- All constants (domains, questions, options)
-- All function signatures with type hints
-- initialize_session_state() (complete)
-- main() (complete)
-- is_setup_complete() (complete)
-- render_setup_status() (complete)
-
-WHAT YOU IMPLEMENT:
--------------------
-- load_knowledge_base()
-- build_prompt()
-- get_ai_response()
-- render_setup_tab()
-- render_chat_tab()
-- render_quick_questions_tab()
+Module 01 Final Project
+Built with Streamlit and OpenAI API
 """
 
 import streamlit as st
@@ -46,10 +14,15 @@ from streamlit.runtime.uploaded_file_manager import UploadedFile
 # CONFIGURATION AND CONSTANTS
 # ==============================================================================
 
-# Available domains for the assistant
 AVAILABLE_DOMAINS: list[str] = ["Fitness", "Travel", "Biology", "Personal Finance"]
 
-# Prompt template questions for each domain (dict of lists)
+DOMAIN_EMOJIS: dict[str, str] = {
+    "Fitness": "💪 Fitness",
+    "Travel": "✈️ Travel",
+    "Biology": "🔬 Biology",
+    "Personal Finance": "💰 Personal Finance"
+}
+
 PREBUILT_QUESTIONS: dict[str, list[str]] = {
     "Fitness": [
         "Create a beginner workout plan",
@@ -77,17 +50,15 @@ PREBUILT_QUESTIONS: dict[str, list[str]] = {
     ]
 }
 
-# Prompt style options
 TONE_OPTIONS: list[str] = ["Friendly", "Professional", "Casual"]
 LENGTH_OPTIONS: list[str] = ["Brief", "Moderate", "Detailed"]
 AUDIENCE_OPTIONS: list[str] = ["Beginner", "Intermediate", "Advanced"]
 
-# Required columns in the uploaded CSV
 REQUIRED_CSV_COLUMNS: list[str] = ["topic", "information"]
 
 
 # ==============================================================================
-# HELPER FUNCTIONS (PROVIDED - DO NOT MODIFY)
+# HELPER FUNCTIONS
 # ==============================================================================
 
 def is_setup_complete() -> bool:
@@ -116,7 +87,7 @@ def render_setup_status() -> None:
 
 
 # ==============================================================================
-# FUNCTIONS TO IMPLEMENT
+# CORE FUNCTIONS
 # ==============================================================================
 
 def load_knowledge_base(uploaded_file: UploadedFile) -> str:
@@ -198,15 +169,17 @@ def get_ai_response(prompt: str) -> str:
 
 
 # ==============================================================================
-# TAB RENDERING FUNCTIONS TO IMPLEMENT
+# TAB RENDERING FUNCTIONS
 # ==============================================================================
 
 def render_setup_tab() -> None:
     st.header("Setup")
+    st.info("👋 Welcome! Select a domain and upload a CSV to get started.")
 
     selected = st.radio(
         "Select a domain:",
         AVAILABLE_DOMAINS,
+        format_func=lambda x: DOMAIN_EMOJIS[x],
         key="setup_domain"
     )
     if st.session_state.selected_domain != selected:
@@ -228,7 +201,9 @@ def render_setup_tab() -> None:
         else:
             st.session_state.knowledge_base = result
             st.session_state.uploaded_filename = uploaded_file.name
-            st.success(f"Loaded: {uploaded_file.name}")
+            st.success(f"✅ Loaded: {uploaded_file.name}")
+            row_count = len(result.split("\n\n"))
+            st.caption(f"📊 {row_count} topics loaded from your knowledge base.")
 
             with st.expander("Preview knowledge base"):
                 st.text(result)
@@ -247,6 +222,7 @@ def render_chat_tab() -> None:
         placeholder=f"Ask anything about {domain}...",
         key="chat_question"
     )
+    st.caption("💡 Tip: Be specific with your question for better answers.")
 
     with st.expander("Response style options"):
         col1, col2, col3 = st.columns(3)
@@ -257,7 +233,15 @@ def render_chat_tab() -> None:
         with col3:
             audience = st.selectbox("Audience", AUDIENCE_OPTIONS, key="chat_audience")
 
-    if st.button("Get Answer", type="primary", key="chat_submit"):
+    col_btn1, col_btn2 = st.columns([1, 5])
+    with col_btn1:
+        ask = st.button("Get Answer", type="primary", key="chat_submit")
+    with col_btn2:
+        if st.button("Clear", key="clear_answer"):
+            st.session_state.last_question = None
+            st.session_state.last_answer = None
+
+    if ask:
         if not user_question.strip():
             st.warning("Please enter a question first.")
             return
@@ -306,7 +290,7 @@ def render_quick_questions_tab() -> None:
 
 
 # ==============================================================================
-# STREAMLIT APP - MAIN INTERFACE (PROVIDED - DO NOT MODIFY)
+# MAIN
 # ==============================================================================
 
 def initialize_session_state() -> None:
@@ -318,13 +302,13 @@ def initialize_session_state() -> None:
         "last_answer": None,
         "openai_api_key": None,
     }
-
     for key, default_value in defaults.items():
         if key not in st.session_state:
             st.session_state[key] = default_value
 
 
 def main() -> None:
+    st.set_page_config(page_title="Domain Q&A Assistant", page_icon="🤖")
     st.title("Domain Q&A Assistant")
     st.caption("A specialist assistant that only answers questions within its selected domain")
 
@@ -338,6 +322,8 @@ def main() -> None:
             key="openai_api_key",
             help="Enter your OpenAI API key to get real AI responses"
         )
+        st.markdown("---")
+        st.caption("Module 01 Final Project")
 
     tab_setup, tab_chat, tab_quick = st.tabs(["Setup", "Chat", "Quick Questions"])
 
@@ -350,10 +336,9 @@ def main() -> None:
     with tab_quick:
         render_quick_questions_tab()
 
+    st.markdown("---")
+    st.caption("Built with Streamlit and OpenAI · Module 01 Final Project")
 
-# ==============================================================================
-# RUN THE APPLICATION
-# ==============================================================================
 
 if __name__ == "__main__":
     main()
