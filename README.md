@@ -21,3 +21,9 @@ Run the app:
 
 Enter your OpenAI API key in the sidebar
 Select a domain and upload a CSV file
+
+CSV Format
+Your knowledge base CSV must have these two columns:
+topic, information
+Protein, Essential for muscle building. Aim for 0.8-1g per pound of body weight.
+Rest, Rest days are important for recovery. Take at least 1-2 rest days per week.
