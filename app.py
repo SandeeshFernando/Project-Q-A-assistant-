@@ -172,7 +172,7 @@ def get_ai_response(prompt: str) -> str:
 
 
 # ==============================================================================
-# tab rendraing functions for each tab's content and interactions
+# Tab RENDERING FUNCTIONS
 # ==============================================================================
 
 def render_setup_tab() -> None:
