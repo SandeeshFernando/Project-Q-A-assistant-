@@ -225,7 +225,7 @@ def render_chat_tab() -> None:
         placeholder=f"Ask anything about {domain}...",
         key="chat_question"
     )
-    st.caption("💡 Tip: Be specific with your question for better answers.")
+    st.caption("💡 Tip: be specific with your question for better answers!!    .")
 
     with st.expander("Response style options"):
         col1, col2, col3 = st.columns(3)
